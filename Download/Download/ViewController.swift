@@ -11,9 +11,15 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressLabel: UILabel!
+    
+    @IBOutlet weak var debugSwitch: UISwitch!
+    
     private lazy var session: URLSession = {
         
-        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+        let id = "com.download.bgsession"
+        let configuration = URLSessionConfiguration.background(withIdentifier: id)
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         return session
     }()
     
@@ -28,8 +34,22 @@ class ViewController: UIViewController {
     
     @IBAction func startBtnDidClicked(_ sender: UIButton) {
         
+        if !debugSwitch.isOn {
+            session.getTasksWithCompletionHandler { (dataTasks, uploadTasks, downloadTasks) in
+                
+                print("dataTasks is \(dataTasks)")
+                print("uploadTasks is \(uploadTasks)")
+                print("downloadTasks is \(downloadTasks)")
+                
+                downloadTasks.forEach({ (task) in
+                    task.cancel()
+                })
+            }
+        }
+        
         if let cancelData = cancelData {
             downloadTask = session.downloadTask(withResumeData: cancelData)
+            self.cancelData = nil
         } else {
             let url = URL(string: "http://192.168.2.197/Unity_Games_by_Tutorials_v0.1.rar")
             downloadTask = session.downloadTask(with: url!)
@@ -48,15 +68,19 @@ class ViewController: UIViewController {
 extension ViewController: URLSessionDownloadDelegate {
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         
-        print(location)
+        DispatchQueue.main.async {
+            self.progressLabel.text = "下载完毕"
+        }
     }
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         
         DispatchQueue.main.async {
-            self.progressView.progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            
+            let progress = Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+            
+            self.progressLabel.text = "\(Int(progress * 100))%"
+            self.progressView.progress = progress
         }
-        
-//        print((bytesWritten + totalBytesWritten) / totalBytesExpectedToWrite * 100)
     }
 }

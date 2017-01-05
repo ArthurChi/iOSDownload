@@ -39,6 +39,15 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="yqL-Re-FTR">
                                 <rect key="frame" x="36" y="100" width="303" height="2"/>
                             </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfH-7I-2gh">
+                                <rect key="frame" x="176" y="122" width="23.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oi3-ja-HaF">
+                                <rect key="frame" x="163" y="449" width="51" height="31"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -46,13 +55,19 @@
                             <constraint firstAttribute="trailingMargin" secondItem="yqL-Re-FTR" secondAttribute="trailing" constant="20" id="IFQ-CI-7nQ"/>
                             <constraint firstItem="OSV-QZ-jFU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nhk-CX-Ng7"/>
                             <constraint firstItem="yqL-Re-FTR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="QVh-HQ-fRT"/>
+                            <constraint firstItem="IfH-7I-2gh" firstAttribute="top" secondItem="yqL-Re-FTR" secondAttribute="bottom" constant="20" id="Xjh-se-5Gt"/>
                             <constraint firstItem="OSV-QZ-jFU" firstAttribute="top" secondItem="UpW-yd-Kic" secondAttribute="bottom" constant="20" id="Xrr-R9-nH3"/>
                             <constraint firstItem="UpW-yd-Kic" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="buy-Np-k76"/>
                             <constraint firstItem="UpW-yd-Kic" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c9I-xv-5eJ"/>
                             <constraint firstItem="yqL-Re-FTR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oTj-Jj-mbU"/>
+                            <constraint firstItem="oi3-ja-HaF" firstAttribute="top" secondItem="OSV-QZ-jFU" secondAttribute="bottom" constant="50" id="quN-Lw-ikd"/>
+                            <constraint firstItem="oi3-ja-HaF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rrf-QT-RhA"/>
+                            <constraint firstItem="IfH-7I-2gh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vJD-uM-f82"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="debugSwitch" destination="oi3-ja-HaF" id="9ng-dq-74r"/>
+                        <outlet property="progressLabel" destination="IfH-7I-2gh" id="YHB-7E-yK8"/>
                         <outlet property="progressView" destination="yqL-Re-FTR" id="QVc-8E-1YA"/>
                     </connections>
                 </viewController>
